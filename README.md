@@ -1,1 +1,1 @@
-# Asynchronous queues bundle
+# Symfony2 asynchronous queues bundle
