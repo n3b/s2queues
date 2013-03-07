@@ -22,17 +22,28 @@ class QueueRepository extends EntityRepository
 	{
 		$ret = array();
 
-		if( $col = $this->findBy( array( 'name' => $queueName ), null, $limit ) )
+		$this->getEntityManager()->beginTransaction();
+
+		try
 		{
-			foreach( $col as $entity )
+			if( $col = $this->findBy( array( 'name' => $queueName ), null, $limit ) )
 			{
-				$ret[] = $entity->getData();
-				$this->getEntityManager()->remove( $entity );
+				foreach( $col as $entity )
+				{
+					$ret[] = $entity->getData();
+					$this->getEntityManager()->remove( $entity );
+				}
+
+				$this->getEntityManager()->flush();
 			}
 
-			$this->getEntityManager()->flush();
+			$this->getEntityManager()->commit();
+			return $ret;
 		}
-
-		return $ret;
+		catch( Exception $e )
+		{
+			$this->getEntityManager()->rollback();
+			throw $e;
+		}
 	}
 }
