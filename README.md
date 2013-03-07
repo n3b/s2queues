@@ -22,3 +22,15 @@ currently represented database and rabbitmq layers
    ```
 
  * shared memory layer will be available soon
+
+
+usage:
+
+```php
+$queueBuilder = $this->getContainer()->get( 'n3b_queues.queue_builder' );
+$queue = $queueBuilder->get( 'VeryNiceQueue' );
+
+$queue->enqueue( new \StdClass );
+
+var_dump( $queue->dequeue() );
+```
