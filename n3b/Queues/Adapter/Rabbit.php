@@ -94,9 +94,8 @@ class Rabbit
 	}
 
 	/**
-	 * бросить сообщение в очередь по имени
-	 * ахтунг, если очереди нет на обменнике, сообщение пукнет в воду
-	 * чтобы сего не произошло, необходимо хотя бы раз объявить очередь. $this->getQueue( $name )
+	 * if there is no declared queue with same name on exchange
+	 * the message will be lost
 	 *
 	 * @param $data
 	 * @param $queueName
@@ -120,8 +119,6 @@ class Rabbit
 	}
 
 	/**
-	 * вытащить сообщение по имени очереди
-	 *
 	 * @param $queueName
 	 * @param bool $autoAck
 	 * @return mixed|null
@@ -133,7 +130,9 @@ class Rabbit
 		{
 			$msg = $this->getQueue( $queueName )->get( $autoAck ? AMQP_AUTOACK : AMQP_NOPARAM );
 
-			return $msg === false ? null : unserialize( $msg->getBody() );
+			return $msg instanceof \AMQPEnvelope
+				? unserialize( $msg->getBody() )
+				: false;
 		}
 		catch( \Exception $e )
 		{
@@ -142,8 +141,6 @@ class Rabbit
 	}
 
 	/**
-	 * acknowledge
-	 *
 	 * @param $queueName
 	 * @param $deliveryTag
 	 */
@@ -160,8 +157,6 @@ class Rabbit
 	}
 
 	/**
-	 * вернуть сообщение в очередь
-	 *
 	 * @param $queueName
 	 * @param $deliveryTag
 	 */
@@ -178,8 +173,6 @@ class Rabbit
 	}
 
 	/**
-	 * кол-во сообщений в очереди
-	 *
 	 * @param $queueName
 	 * @return mixed
 	 */
@@ -196,8 +189,6 @@ class Rabbit
 	}
 
 	/**
-	 * удалить очередь со всем содержимым
-	 *
 	 * @param $queueName
 	 * @return mixed
 	 */
@@ -222,7 +213,6 @@ class Rabbit
 	 */
 	protected function runtimeException( \Exception $e )
 	{
-		// предположительно отвалилось соединение, очистим ресурсы для повторной инициализации
 		$this->connection->disconnect();
 		$this->connection = null;
 		$this->channel = null;

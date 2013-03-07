@@ -16,7 +16,6 @@ class Rabbit extends \SplQueue
 	}
 
 	/**
-	 * отправить данные в очередь
 	 * @param mixed $data
 	 * @throws \Exception
 	 */
@@ -26,7 +25,6 @@ class Rabbit extends \SplQueue
 	}
 
 	/**
-	 * получить данные из очереди
 	 * @return mixed|null
 	 * @throws \Exception
 	 */
@@ -36,7 +34,6 @@ class Rabbit extends \SplQueue
 	}
 
 	/**
-	 * скажите, как его зовут?
 	 * @return mixed
 	 */
 	public function getName()
@@ -45,7 +42,6 @@ class Rabbit extends \SplQueue
 	}
 
 	/**
-	 * считаем остаток сообщений
 	 * @return int|mixed
 	 * @throws \Exception
 	 */
@@ -55,7 +51,6 @@ class Rabbit extends \SplQueue
 	}
 
 	/**
-	 * удаляем нахрен очередь на обменнике
 	 * @return mixed
 	 * @throws \Exception
 	 */
