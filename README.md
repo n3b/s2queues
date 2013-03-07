@@ -15,7 +15,7 @@ currently represented database and rabbitmq layers
      adapter:
        rabbit:
          host:       localhost
-         port:       55672
+         port:       5672
          user:       guest
          password:   guest
          vhost:      /
