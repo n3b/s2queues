@@ -1,6 +1,7 @@
 # Symfony2 asynchronous queues bundle
 
 just as example, how to use queues with any storage layer
+
 you can use it to manage asynchronous processes like described here https://github.com/n3b/s2asynced
 
 currently represented database and rabbitmq layers
