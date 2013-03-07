@@ -1,0 +1,17 @@
+parameters:
+  n3b_queues.default_adapter:  'db'
+  n3b_queues.adapters:
+    db:
+      arguments:          ~
+      queue_class:        'n3b\Queues\Queue\Db'
+    rabbit:
+      arguments:
+        host:             'localhost'
+        port:             5672
+        user:             'guest'
+        password:         'guest'
+        vhost:            '/'
+      queue_class:        'n3b\Queues\Queue\Rabbit'
+    shm:
+      arguments:          ~
+      queue_class:        'n3b\Queues\Queue\SHM'

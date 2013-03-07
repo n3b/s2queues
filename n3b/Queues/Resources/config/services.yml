@@ -1,0 +1,6 @@
+services:
+  n3b_queues.queue_builder:
+    class:                          n3b\Queues\Builder
+    arguments:
+      adapter:                      @n3b_queues.queue_adapter
+      queue_class:                  %n3b_queues.queue.class%

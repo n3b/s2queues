@@ -12,6 +12,7 @@ class Db extends \SplQueue
 	public function __construct( $name, QueueRepository $rep )
 	{
 		$this->rep = $rep;
+		$this->name = $name;
 	}
 
 	public function getName()
@@ -24,8 +25,13 @@ class Db extends \SplQueue
 		return $this->rep->enqueue( $this->name, $data );
 	}
 
+	/**
+	 * @return bool|mixed
+	 */
 	public function dequeue()
 	{
-		return reset( $this->rep->dequeue( $this->name ) );
+		$ret = $this->rep->dequeue( $this->name );
+
+		return count( $ret ) ? reset( $ret ) : false;
 	}
 }

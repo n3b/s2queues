@@ -1,0 +1,5 @@
+services:
+  n3b_queues.queue_adapter:
+    class:                          'n3b\Queues\Adapter\SHM'
+    arguments:                      ~
+    public:                         false

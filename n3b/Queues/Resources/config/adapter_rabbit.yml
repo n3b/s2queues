@@ -1,0 +1,10 @@
+services:
+  n3b_queues.queue_adapter:
+    class:                          'n3b\Queues\Adapter\Rabbit'
+    arguments:
+      host:                         %n3b_queues.queue_adapter.host%
+      port:                         %n3b_queues.queue_adapter.port%
+      user:                         %n3b_queues.queue_adapter.user%
+      password:                     %n3b_queues.queue_adapter.password%
+      vhost:                        %n3b_queues.queue_adapter.vhost%
+    public:                         false

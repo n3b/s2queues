@@ -1,0 +1,8 @@
+services:
+  n3b_queues.queue_adapter:
+    class:                          'n3b\Queues\Entity\QueueRepository'
+    factory_service:                'doctrine.orm.entity_manager'
+    factory_method:                 'getRepository'
+    arguments:
+      rep:                          'n3bQueuesBundle:QueueMessage'
+    public:                         false
