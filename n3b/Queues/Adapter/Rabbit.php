@@ -59,7 +59,6 @@ class Rabbit
 	}
 
 	/**
-	 * пока реализуем через единственный обменник
 	 * @return \AMQPExchange
 	 */
 	protected function getExchange()
@@ -76,7 +75,6 @@ class Rabbit
 	}
 
 	/**
-	 * получить очередь по имени
 	 * @param $name
 	 * @return \AMQPQueue
 	 */
@@ -90,13 +88,14 @@ class Rabbit
 		$queue->declare();
 		$queue->bind( $this->getExchange()->getName(), $queue->getName() );
 
+		// if there is no declared queue with same name on exchange
+		// the message will be lost
+		$queue->declare();
+
 		return $this->queues[$name] = $queue;
 	}
 
 	/**
-	 * if there is no declared queue with same name on exchange
-	 * the message will be lost
-	 *
 	 * @param $data
 	 * @param $queueName
 	 * @return mixed
@@ -205,7 +204,7 @@ class Rabbit
 	}
 
 	/**
-	 * isConnected всегда === true, так что будем чистить сами
+	 * isConnected is always === true
 	 * https://github.com/pdezwart/php-amqp/issues/35
 	 *
 	 * @param \Exception $e
