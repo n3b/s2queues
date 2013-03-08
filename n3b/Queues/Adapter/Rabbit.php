@@ -89,7 +89,7 @@ class Rabbit
 		$queue->bind( $this->getExchange()->getName(), $queue->getName() );
 
 		// if there is no declared queue with same name on exchange
-		// the message will be lost
+		// the published messages will be lost
 		$queue->declare();
 
 		return $this->queues[$name] = $queue;
